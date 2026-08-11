@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import crest from './assets/logo/bulldogs-crest.png'
 import { players, coaches, schedule, standings, videos, teamInfo } from './data/players.js'
 import { photos } from './data/photos.js'
@@ -235,12 +235,28 @@ function Coaches() {
 }
 
 function Photos() {
+  const [openIndex, setOpenIndex] = useState(null)
+
+  useEffect(() => {
+    if (openIndex === null) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpenIndex(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openIndex])
+
   return (
     <section className="panel">
       <SectionLabel n="05">Team Photos</SectionLabel>
       <div className="photo-grid">
         {photos.map((p, i) => (
-          <figure className="photo-card" key={i}>
+          <figure
+            className="photo-card"
+            key={i}
+            onClick={() => setOpenIndex(i)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOpenIndex(i) }}
+          >
             <img src={p.src} alt={p.caption} />
             <figcaption>{p.caption}</figcaption>
           </figure>
@@ -249,7 +265,26 @@ function Photos() {
       <p className="muted" style={{ marginTop: '1.5rem' }}>
         More photos will drop in automatically once the "Photos" tab of the Google Sheet is connected.
       </p>
+
+      {openIndex !== null && (
+        <PhotoLightbox
+          photo={photos[openIndex]}
+          onClose={() => setOpenIndex(null)}
+        />
+      )}
     </section>
+  )
+}
+
+function PhotoLightbox({ photo, onClose }) {
+  return (
+    <div className="lightbox-backdrop" onClick={onClose}>
+      <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
+        <button className="lightbox-close" onClick={onClose} aria-label="Close">✕</button>
+        <img src={photo.src} alt={photo.caption} />
+        <p className="lightbox-caption">{photo.caption}</p>
+      </div>
+    </div>
   )
 }
 
