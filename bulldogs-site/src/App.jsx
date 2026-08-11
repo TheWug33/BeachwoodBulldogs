@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import crest from './assets/logo/bulldogs-crest.png'
 import { players, coaches, schedule, standings, videos, teamInfo } from './data/players.js'
+import { photos } from './data/photos.js'
 
 const SECTIONS = [
   { id: 'home', label: 'Home' },
@@ -17,9 +18,10 @@ export default function App() {
 
   return (
     <div className="app">
+      <Ticker />
       <header className="topbar">
         <div className="topbar-inner">
-          <div className="brand">
+          <div className="brand" onClick={() => setActive('home')}>
             <img src={crest} alt="Beachwood Bulldogs crest" className="crest" />
             <div className="brand-text">
               <span className="brand-eyebrow">Beachwood</span>
@@ -78,6 +80,27 @@ export default function App() {
   )
 }
 
+// ESPN-style scrolling headline ticker — pulls from the schedule so it always
+// reflects real data once the Sheet is connected.
+function Ticker() {
+  const items = schedule.length
+    ? schedule.map((g) => `${g.result ? g.result + ' ' : 'UPCOMING '}vs ${g.opponent} — ${g.date}`)
+    : ['Season schedule coming soon']
+  const loop = [...items, ...items]
+  return (
+    <div className="ticker">
+      <span className="ticker-tag">BULLDOGS</span>
+      <div className="ticker-track">
+        <div className="ticker-scroll">
+          {loop.map((t, i) => (
+            <span className="ticker-item" key={i}>{t}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function SectionLabel({ n, children }) {
   return (
     <div className="section-label">
@@ -91,17 +114,34 @@ function Home({ onNav }) {
   const next = schedule[0]
   return (
     <section className="hero">
-      <div className="hero-crest-wrap">
-        <img src={crest} alt="" className="hero-crest" />
+      <div className="hero-top">
+        <div className="hero-crest-wrap">
+          <img src={crest} alt="" className="hero-crest" />
+        </div>
+        <div>
+          <h1 className="hero-title">Beachwood Bulldogs</h1>
+          <p className="hero-sub">2026 Season</p>
+        </div>
       </div>
-      <h1 className="hero-title">Beachwood Bulldogs</h1>
-      <p className="hero-sub">2026 Season</p>
-      <div className="hero-next">
-        <span className="hero-next-label">Next Match</span>
-        <span className="hero-next-detail">
-          {next.opponent} · {next.date} {next.time && `— ${next.time}`}
-        </span>
+
+      <div className="score-bug">
+        <div className="score-bug-label">Next Match</div>
+        <div className="score-bug-body">
+          <div className="score-bug-team">
+            <img src={crest} alt="" />
+            <span>BULLDOGS</span>
+          </div>
+          <div className="score-bug-vs">
+            <span className="vs">VS</span>
+            <span className="score-bug-date">{next.date}{next.time && ` · ${next.time}`}</span>
+          </div>
+          <div className="score-bug-team">
+            <span className="opponent-initial">{next.opponent?.[0] || '?'}</span>
+            <span>{next.opponent}</span>
+          </div>
+        </div>
       </div>
+
       <div className="hero-actions">
         <button onClick={() => onNav('roster')}>Meet the Team</button>
         <button className="ghost" onClick={() => onNav('schedule')}>Full Schedule</button>
@@ -125,7 +165,7 @@ function Schedule() {
               <td>{g.time || '—'}</td>
               <td>{g.opponent}</td>
               <td>{g.location}</td>
-              <td>{g.result || '—'}</td>
+              <td>{g.result ? <span className="pill">{g.result}</span> : '—'}</td>
             </tr>
           ))}
         </tbody>
@@ -149,7 +189,7 @@ function Standings() {
               <td>{t.w}</td>
               <td>{t.l}</td>
               <td>{t.t}</td>
-              <td>{t.pts}</td>
+              <td className="pts-col">{t.pts}</td>
             </tr>
           ))}
         </tbody>
@@ -198,10 +238,17 @@ function Photos() {
   return (
     <section className="panel">
       <SectionLabel n="05">Team Photos</SectionLabel>
-      <p className="muted">Photos will populate here once linked to the "Photos" tab of the Google Sheet (image URL + caption per row).</p>
-      <div className="photo-grid placeholder">
-        {[1, 2, 3, 4, 5, 6].map((i) => <div className="photo-slot" key={i} />)}
+      <div className="photo-grid">
+        {photos.map((p, i) => (
+          <figure className="photo-card" key={i}>
+            <img src={p.src} alt={p.caption} />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
       </div>
+      <p className="muted" style={{ marginTop: '1.5rem' }}>
+        More photos will drop in automatically once the "Photos" tab of the Google Sheet is connected.
+      </p>
     </section>
   )
 }
