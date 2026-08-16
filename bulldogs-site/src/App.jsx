@@ -210,15 +210,11 @@ function Coaches() {
   return (
     <section className="panel">
       <SectionLabel n="04">Coaches</SectionLabel>
-      <div className="coach-grid">
+      <div className="roster-grid">
         {coaches.map((c, i) => (
-          <div className="coach-card" key={i}>
-            <div className="coach-photo">{c.photo ? <img src={c.photo} alt={c.name} /> : <span>{c.name.split(' ').map(w => w[0]).join('')}</span>}</div>
-            <div>
-              <h3>{c.name}</h3>
-              <span className="coach-role">{c.role}</span>
-              <p>{c.bio}</p>
-            </div>
+          <div className="player-card" key={i}>
+            <img src={c.photo} alt={`${c.name} — ${c.role}`} />
+            {c.bio && <p className="player-bio">{c.bio}</p>}
           </div>
         ))}
       </div>
