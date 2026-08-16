@@ -95,7 +95,7 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 6vw, 4rem);
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 .hero-sub {
   font-family: var(--font-mono);
@@ -138,7 +138,7 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 /* ---- Section label (numbered like a jersey) ---- */
 .section-label { display: flex; align-items: baseline; gap: 0.85rem; margin-bottom: 1.75rem; border-bottom: 1px solid rgba(243,239,231,0.15); padding-bottom: 0.75rem; }
 .section-n { font-family: var(--font-mono); color: var(--maroon); font-weight: 600; font-size: 1rem; }
-.section-label h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; margin: 0; letter-spacing: 0.02em; }
+.section-label h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; margin: 0; letter-spacing: 0.03em; }
 
 .panel { padding-top: 0.5rem; }
 .muted { color: var(--steel); font-size: 0.9rem; }
@@ -181,7 +181,7 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
   font-family: var(--font-display); overflow: hidden;
 }
 .coach-photo img { width: 100%; height: 100%; object-fit: cover; }
-.coach-card h3 { margin: 0 0 0.15rem; font-family: var(--font-display); font-weight: 400; }
+.coach-card h3 { margin: 0 0 0.15rem; font-family: var(--font-display); font-weight: 400; letter-spacing: 0.03em; }
 .coach-role { font-family: var(--font-mono); color: var(--brass); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .coach-card p { margin: 0.5rem 0 0; color: var(--steel); font-size: 0.9rem; }
 
