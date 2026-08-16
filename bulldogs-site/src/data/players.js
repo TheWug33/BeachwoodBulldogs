@@ -14,6 +14,7 @@ import knapp from '../assets/players/knapp-73.png'
 import meyer from '../assets/players/meyer-58.png'
 import nesbihalR from '../assets/players/nesbihal-r-3.png'
 import gibson from '../assets/players/gibson-17.png'
+import coachWesten from '../assets/coaches/westen-head-coach.png'
 
 export const players = [
   { number: 3, name: 'Ryder Nesbihal', position: 'Midfield', photo: nesbihalR, bio: '' },
@@ -30,7 +31,7 @@ export const players = [
 ]
 
 export const coaches = [
-  { name: 'Head Coach Name', role: 'Head Coach', bio: 'Add a short bio here once the Sheet is connected — playing background, coaching philosophy, years with the club.', photo: null },
+  { name: 'Heather Westen', role: 'Head Coach', bio: '', photo: coachWesten },
 ]
 
 export const schedule = [
