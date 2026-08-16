@@ -288,21 +288,80 @@ function PhotoLightbox({ photo, onClose }) {
   )
 }
 
+// Pulls a YouTube video ID out of common URL formats so we can show a real
+// thumbnail + play an inline embed, instead of a plain text link.
+function getYouTubeId(url) {
+  if (!url) return null
+  const patterns = [
+    /youtu\.be\/([\w-]{11})/,
+    /youtube\.com\/watch\?v=([\w-]{11})/,
+    /youtube\.com\/embed\/([\w-]{11})/,
+    /youtube\.com\/shorts\/([\w-]{11})/,
+  ]
+  for (const p of patterns) {
+    const m = url.match(p)
+    if (m) return m[1]
+  }
+  return null
+}
+
 function Videos() {
+  const [openVideo, setOpenVideo] = useState(null)
+
+  useEffect(() => {
+    if (!openVideo) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpenVideo(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openVideo])
+
   return (
     <section className="panel">
       <SectionLabel n="06">Training Videos</SectionLabel>
-      <div className="video-list">
-        {videos.map((v, i) => (
-          <div className="video-row" key={i}>
-            {v.url ? (
-              <a href={v.url} target="_blank" rel="noreferrer">{v.title}</a>
-            ) : (
-              <span className="muted">{v.title}</span>
-            )}
-          </div>
-        ))}
+      <div className="video-grid">
+        {videos.map((v, i) => {
+          const ytId = getYouTubeId(v.url)
+          return (
+            <figure
+              className="video-card"
+              key={i}
+              onClick={() => ytId && setOpenVideo(v)}
+              role={ytId ? 'button' : undefined}
+              tabIndex={ytId ? 0 : undefined}
+              onKeyDown={(e) => { if (ytId && (e.key === 'Enter' || e.key === ' ')) setOpenVideo(v) }}
+            >
+              {ytId ? (
+                <div className="video-thumb">
+                  <img src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`} alt={v.title} />
+                  <span className="play-badge">▶</span>
+                </div>
+              ) : (
+                <div className="video-thumb video-thumb-empty">
+                  <span className="play-badge muted-badge">▶</span>
+                </div>
+              )}
+              <figcaption>{v.title}</figcaption>
+            </figure>
+          )
+        })}
       </div>
+
+      {openVideo && (
+        <div className="lightbox-backdrop" onClick={() => setOpenVideo(null)}>
+          <div className="lightbox-inner video-lightbox" onClick={(e) => e.stopPropagation()}>
+            <button className="lightbox-close" onClick={() => setOpenVideo(null)} aria-label="Close">✕</button>
+            <div className="video-embed-wrap">
+              <iframe
+                src={`https://www.youtube.com/embed/${getYouTubeId(openVideo.url)}?autoplay=1`}
+                title={openVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <p className="lightbox-caption">{openVideo.title}</p>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
