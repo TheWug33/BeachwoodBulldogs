@@ -255,18 +255,7 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 }
 
 /* ---- Score bug (hero next-match block, ESPN gamecast style) ---- */
-.hero-top {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  justify-content: center;
-  text-align: left;
-  margin-bottom: 1.75rem;
-}
-.hero-top .hero-crest-wrap { margin: 0; }
-.hero-top .hero-crest { height: 88px; }
-.hero-top .hero-title { font-size: clamp(2rem, 5vw, 3.2rem); }
-.hero-top .hero-sub { margin-top: 0.15rem; }
+.hero-sub-standalone { margin-bottom: 1.5rem; }
 
 .score-bug {
   max-width: 560px;

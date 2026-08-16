@@ -114,15 +114,7 @@ function Home({ onNav }) {
   const next = schedule[0]
   return (
     <section className="hero">
-      <div className="hero-top">
-        <div className="hero-crest-wrap">
-          <img src={crest} alt="" className="hero-crest" />
-        </div>
-        <div>
-          <h1 className="hero-title">Beachwood Bulldogs</h1>
-          <p className="hero-sub">2026 Season</p>
-        </div>
-      </div>
+      <p className="hero-sub hero-sub-standalone">2026 Season</p>
 
       <div className="score-bug">
         <div className="score-bug-label">Next Match</div>
