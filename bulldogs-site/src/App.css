@@ -6,8 +6,7 @@
   --steel: #9CA0A8;
   --brass: #C6A15B;
 
-  --font-display: 'Playfair Display', serif;
-  --font-brand: 'Montserrat', sans-serif;
+  --font-display: 'Anton', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
@@ -61,10 +60,9 @@ a { color: var(--brass); }
   text-transform: uppercase;
 }
 .brand-name {
-  font-family: var(--font-brand);
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
 }
 
 .ribbon-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
@@ -73,9 +71,8 @@ a { color: var(--brass); }
   background: transparent;
   border: none;
   color: var(--steel);
-  font-family: var(--font-brand);
-  font-weight: 700;
-  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.5rem 0.85rem;
@@ -96,10 +93,9 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 .hero-crest { height: 140px; width: auto; filter: drop-shadow(0 8px 24px rgba(122,27,44,0.45)); }
 .hero-title {
   font-family: var(--font-display);
-  font-weight: 800;
   font-size: clamp(2.4rem, 6vw, 4rem);
   margin: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 .hero-sub {
   font-family: var(--font-mono);
@@ -128,9 +124,8 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 .hero-next-detail { font-size: 1rem; }
 .hero-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
 .hero-actions button {
-  font-family: var(--font-brand);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.8rem;
   padding: 0.75rem 1.5rem;
@@ -142,7 +137,8 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 
 /* ---- Section label (numbered like a jersey) ---- */
 .section-label { display: flex; align-items: baseline; gap: 0.85rem; margin-bottom: 1.75rem; border-bottom: 1px solid rgba(243,239,231,0.15); padding-bottom: 0.75rem; }
-.section-n { font-family: var(--font-brand); color: var(--maroon); font-weight: 800; font-size: 0.95rem; }
+.section-n { font-family: var(--font-mono); color: var(--maroon); font-weight: 600; font-size: 1rem; }
+.section-label h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; margin: 0; letter-spacing: 0.02em; }
 
 .panel { padding-top: 0.5rem; }
 .muted { color: var(--steel); font-size: 0.9rem; }
@@ -182,9 +178,10 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 .coach-photo {
   width: 64px; height: 64px; flex-shrink: 0; border-radius: 50%;
   background: var(--maroon); display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-brand); font-weight: 800; overflow: hidden;
+  font-family: var(--font-display); overflow: hidden;
 }
 .coach-photo img { width: 100%; height: 100%; object-fit: cover; }
+.coach-card h3 { margin: 0 0 0.15rem; font-family: var(--font-display); font-weight: 400; }
 .coach-role { font-family: var(--font-mono); color: var(--brass); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .coach-card p { margin: 0.5rem 0 0; color: var(--steel); font-size: 0.9rem; }
 
@@ -300,9 +297,8 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  font-family: var(--font-brand);
-  font-weight: 800;
-  font-size: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   letter-spacing: 0.03em;
 }
 .score-bug-team img { height: 44px; width: auto; }
@@ -314,9 +310,8 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-brand);
-  font-weight: 800;
-  font-size: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
 }
 .score-bug-vs { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
 .score-bug-vs .vs {
@@ -449,19 +444,3 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 .video-lightbox { width: min(90vw, 900px); }
 .video-embed-wrap { position: relative; width: 100%; aspect-ratio: 16/9; }
 .video-embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 1px solid var(--maroon); }
-
-/* ---- Unify branding/nav on the italic serif used in the hero title ---- */
-.brand-name,
-.ribbon-tab,
-.hero-actions button,
-.score-bug-team,
-.opponent-initial,
-.coach-photo {
-  font-family: var(--font-display) !important;
-  font-weight: 800;
-}
-.brand-name { font-size: 1.3rem; letter-spacing: 0.01em; }
-.ribbon-tab { font-size: 0.85rem; letter-spacing: 0.01em; text-transform: none; }
-.hero-actions button { font-size: 0.95rem; letter-spacing: 0.01em; text-transform: none; }
-.score-bug-team { font-size: 0.95rem; letter-spacing: 0.01em; }
-.opponent-initial { font-size: 1.3rem; }
