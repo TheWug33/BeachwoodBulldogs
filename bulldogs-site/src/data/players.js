@@ -43,7 +43,10 @@ export const standings = [
 ]
 
 export const videos = [
-  { title: 'Add a training video', url: '' },
+  { title: '10 Best U12 Soccer Drills (MOJO)', url: 'https://www.youtube.com/watch?v=XWIP0VbJtKs' },
+  { title: 'Complete Technical Training — Ball Mastery, Dribbling & Turning (U12–U15)', url: 'https://www.youtube.com/watch?v=Yp4k6eSGgWw' },
+  { title: 'Double Square Rondo — Passing & Possession (U11–U14)', url: 'https://www.youtube.com/watch?v=D2vHV6dMvqo' },
+  { title: '8v3 Rondo Possession Drill (U11–U13)', url: 'https://www.youtube.com/watch?v=9jQRQsnyfKw' },
 ]
 
 export const teamInfo = {
