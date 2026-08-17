@@ -38,6 +38,16 @@ export default function App() {
                 {s.label}
               </button>
             ))}
+            {teamInfo.storeUrl && (
+              <a
+                href={teamInfo.storeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="ribbon-tab ribbon-tab-store"
+              >
+                Team Store
+              </a>
+            )}
           </nav>
         </div>
       </header>
@@ -61,11 +71,6 @@ export default function App() {
             </p>
           </div>
           <div className="footer-links">
-            {teamInfo.storeUrl ? (
-              <a href={teamInfo.storeUrl} target="_blank" rel="noreferrer">Team Store</a>
-            ) : (
-              <span className="muted">Team Store link — add in data</span>
-            )}
             {teamInfo.instagramHandle ? (
               <a href={`https://instagram.com/${teamInfo.instagramHandle}`} target="_blank" rel="noreferrer">
                 @{teamInfo.instagramHandle}
