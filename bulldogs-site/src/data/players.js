@@ -50,7 +50,7 @@ export const videos = [
 ]
 
 export const teamInfo = {
-  storeUrl: '',
+  storeUrl: 'https://teamlocker.squadlocker.com/stores/beachwood-bulldogs',
   instagramHandle: '',
   fields: [
     { name: 'Home Field', address: 'Add address' },
