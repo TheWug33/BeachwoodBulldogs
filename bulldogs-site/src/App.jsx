@@ -19,6 +19,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <div className="bg-layer" aria-hidden="true"></div>
       <Ticker />
       <img
         src={stadiumHero}
