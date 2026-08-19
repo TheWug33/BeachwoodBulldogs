@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import crest from './assets/logo/bulldogs-crest.png'
 import stadiumHero from './assets/hero/stadium-hero.png'
-import { players, coaches, schedule, standings, videos, teamInfo } from './data/players.js'
+import { players, coaches, schedule as staticSchedule, standings as staticStandings, videos, teamInfo } from './data/players.js'
 import { photos } from './data/photos.js'
+import { SHEET_URLS, fetchSheet } from './lib/sheets.js'
 
 const SECTIONS = [
   { id: 'home', label: 'Home' },
@@ -13,6 +14,30 @@ const SECTIONS = [
   { id: 'photos', label: 'Photos' },
   { id: 'videos', label: 'Training' },
 ]
+
+// Fetches a Sheet tab live; falls back to the static bundled data if the
+// fetch fails or the tab is empty (e.g. before it's been filled in).
+function useSheetData(sheetKey, fallback, transform) {
+  const [data, setData] = useState(fallback)
+  useEffect(() => {
+    let cancelled = false
+    fetchSheet(SHEET_URLS[sheetKey])
+      .then((rows) => {
+        if (cancelled || !rows || !rows.length) return
+        setData(transform ? transform(rows) : rows)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
+  return data
+}
+
+const toSchedule = (rows) => rows.map((r) => ({
+  date: r.Date, time: r.Time, opponent: r.Opponent, location: r.Location, result: r.Result,
+}))
+const toStandings = (rows) => rows.map((r) => ({
+  team: r.Team, w: Number(r.W) || 0, l: Number(r.L) || 0, t: Number(r.T) || 0, pts: Number(r.Pts) || 0,
+}))
 
 export default function App() {
   const [active, setActive] = useState('home')
@@ -89,6 +114,7 @@ export default function App() {
 // ESPN-style scrolling headline ticker — pulls from the schedule so it always
 // reflects real data once the Sheet is connected.
 function Ticker() {
+  const schedule = useSheetData('schedule', staticSchedule, toSchedule)
   const items = schedule.length
     ? schedule.map((g) => `${g.result ? g.result + ' ' : 'UPCOMING '}vs ${g.opponent} — ${g.date}`)
     : ['Season schedule coming soon']
@@ -117,6 +143,7 @@ function SectionLabel({ n, children }) {
 }
 
 function Home({ onNav }) {
+  const schedule = useSheetData('schedule', staticSchedule, toSchedule)
   const next = schedule[0]
   return (
     <section className="hero">
@@ -149,6 +176,7 @@ function Home({ onNav }) {
 }
 
 function Schedule() {
+  const schedule = useSheetData('schedule', staticSchedule, toSchedule)
   return (
     <section className="panel">
       <SectionLabel n="01">Schedule</SectionLabel>
@@ -173,6 +201,7 @@ function Schedule() {
 }
 
 function Standings() {
+  const standings = useSheetData('standings', staticStandings, toStandings)
   return (
     <section className="panel">
       <SectionLabel n="02">Standings</SectionLabel>
