@@ -29,10 +29,7 @@ body {
     radial-gradient(ellipse 480px 300px at 6% 0, rgba(255,255,255,0.12), transparent 60%),
     radial-gradient(ellipse 480px 300px at 94% 0, rgba(255,255,255,0.12), transparent 60%),
     linear-gradient(180deg, rgba(26,19,48,0.88) 0%, rgba(58,18,32,0.8) 14%, rgba(90,21,34,0.68) 26%, rgba(122,27,44,0.55) 36%, rgba(61,15,22,0.55) 55%, rgba(23,18,15,0.5) 100%),
-    url('./assets/hero/turf-photo.png');
-  background-size: auto, auto, auto, cover;
-  background-position: 0 0, 0 0, 0 0, center;
-  background-repeat: no-repeat;
+    repeating-linear-gradient(180deg, #2b5e26 0px, #2b5e26 70px, #336e2c 70px, #336e2c 140px);
 }
 
 button {
