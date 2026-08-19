@@ -15,7 +15,13 @@
 
 body {
   margin: 0;
-  background: var(--ink);
+  background-color: #14101a;
+  background-image:
+    radial-gradient(ellipse 480px 300px at 6% 0, rgba(255,255,255,0.1), transparent 60%),
+    radial-gradient(ellipse 480px 300px at 94% 0, rgba(255,255,255,0.1), transparent 60%),
+    linear-gradient(180deg, #1a1330 0%, #3a1220 14%, #5a1522 26%, #7a1b2c 36%, #3d0f16 55%, #17120f 100%),
+    repeating-linear-gradient(115deg, #12210f 0px, #12210f 42px, #17280f 42px, #17280f 84px);
+  background-blend-mode: normal, normal, normal, multiply;
   color: var(--bone);
   font-family: var(--font-body);
 }
@@ -29,30 +35,27 @@ a { color: var(--brass); }
 
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
-/* ---- Top bar / ribbon nav (turf field backdrop with faded crest watermark) ---- */
+/* ---- Site hero photo (stadium/crest image, sits above the nav) ---- */
+.site-hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: cover;
+  cursor: pointer;
+  border-bottom: 3px solid var(--maroon);
+}
+@media (max-width: 640px) {
+  .site-hero-image { max-height: 220px; }
+}
+
+/* ---- Sticky nav bar (sits directly below the hero photo) ---- */
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
-  overflow: hidden;
   border-bottom: 3px solid var(--maroon);
-  background-color: var(--maroon-deep);
-  background-image:
-    linear-gradient(180deg, rgba(10,9,11,0.55) 0%, rgba(74,14,26,0.5) 55%, rgba(74,14,26,0.62) 100%),
-    repeating-linear-gradient(115deg, #2f7a2a 0px, #2f7a2a 42px, #3d9636 42px, #3d9636 84px);
-}
-
-.topbar-watermark {
-  position: absolute;
-  top: 50%;
-  right: -40px;
-  transform: translateY(-50%);
-  height: 280px;
-  width: auto;
-  opacity: 0.1;
-  filter: grayscale(1) contrast(1.1);
-  pointer-events: none;
-  user-select: none;
+  background: var(--maroon-deep);
 }
 
 .topbar-inner {
@@ -66,6 +69,8 @@ a { color: var(--brass); }
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
+.topbar-inner-nav-only { justify-content: center; }
 
 .brand { display: flex; align-items: center; gap: 0.75rem; }
 .crest { height: 48px; width: auto; }
@@ -222,7 +227,6 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 @media (max-width: 640px) {
   .topbar-inner { flex-direction: column; align-items: flex-start; }
   .ribbon-nav { width: 100%; overflow-x: auto; }
-  .topbar-watermark { height: 180px; opacity: 0.08; }
 }
 
 /* ================= ESPN-style additions ================= */
@@ -457,69 +461,3 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 
 /* ---- Team Store nav link ---- */
 .ribbon-tab-store { text-decoration: none; }
-
-/* ---- Dramatic hero banner (evening sky + stadium lights + turf ground) ---- */
-.hero-banner {
-  position: relative;
-  margin: -1rem -1rem 2rem;
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--maroon);
-  background:
-    radial-gradient(ellipse 420px 260px at 8% 0%, rgba(255,255,255,0.22), transparent 60%),
-    radial-gradient(ellipse 420px 260px at 92% 0%, rgba(255,255,255,0.22), transparent 60%),
-    linear-gradient(180deg, #1a1330 0%, #3a1220 32%, #5a1522 55%, #7a1b2c 72%, #3d0f16 100%),
-    repeating-linear-gradient(115deg, #163a13 0px, #163a13 42px, #1c4718 42px, #1c4718 84px);
-  background-blend-mode: normal, normal, normal, multiply;
-}
-.hero-banner::after {
-  /* ground fade so the turf pattern only reads at the very bottom, like a pitch horizon */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(15,10,14,0) 55%, rgba(10,8,10,0.55) 100%);
-}
-.hero-banner-crest {
-  position: relative;
-  z-index: 1;
-  height: 220px;
-  width: auto;
-  filter: drop-shadow(0 0 34px rgba(198,161,91,0.35)) drop-shadow(0 14px 26px rgba(0,0,0,0.6));
-}
-@media (max-width: 640px) {
-  .hero-banner { min-height: 220px; margin: -1rem -1rem 1.5rem; }
-  .hero-banner-crest { height: 150px; }
-}
-
-/* ---- Quick-nav icon strip ---- */
-.quick-nav {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
-  gap: 0;
-  background: var(--maroon-deep);
-  border: 1px solid var(--maroon);
-  margin-bottom: 2.5rem;
-}
-.quick-nav-item {
-  background: transparent;
-  border: none;
-  border-right: 1px solid rgba(243,239,231,0.12);
-  color: var(--bone);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.9rem 0.5rem;
-  transition: background 0.15s;
-}
-.quick-nav-item:last-child { border-right: none; }
-.quick-nav-item:hover { background: var(--maroon); }
-.quick-nav-icon { font-size: 1.3rem; line-height: 1; }

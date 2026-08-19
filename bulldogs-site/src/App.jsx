@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import crest from './assets/logo/bulldogs-crest.png'
+import stadiumHero from './assets/hero/stadium-hero.png'
 import { players, coaches, schedule, standings, videos, teamInfo } from './data/players.js'
 import { photos } from './data/photos.js'
 
@@ -19,16 +20,14 @@ export default function App() {
   return (
     <div className="app">
       <Ticker />
+      <img
+        src={stadiumHero}
+        alt="Beachwood Bulldogs"
+        className="site-hero-image"
+        onClick={() => setActive('home')}
+      />
       <header className="topbar">
-        <img src={crest} alt="" className="topbar-watermark" aria-hidden="true" />
-        <div className="topbar-inner">
-          <div className="brand" onClick={() => setActive('home')}>
-            <img src={crest} alt="Beachwood Bulldogs crest" className="crest" />
-            <div className="brand-text">
-              <span className="brand-eyebrow">Beachwood</span>
-              <span className="brand-name">BULLDOGS</span>
-            </div>
-          </div>
+        <div className="topbar-inner topbar-inner-nav-only">
           <nav className="ribbon-nav">
             {SECTIONS.map((s) => (
               <button
@@ -116,42 +115,10 @@ function SectionLabel({ n, children }) {
   )
 }
 
-const QUICK_LINKS = [
-  { id: 'schedule', label: 'Schedule', icon: '📅' },
-  { id: 'roster', label: 'Roster', icon: '👥' },
-  { id: 'standings', label: 'Standings', icon: '🏆' },
-  { id: 'photos', label: 'Photos', icon: '🖼️' },
-  { id: 'videos', label: 'Training', icon: '🎥' },
-]
-
 function Home({ onNav }) {
   const next = schedule[0]
   return (
     <section className="hero">
-      <div className="hero-banner">
-        <img src={crest} alt="Beachwood Bulldogs" className="hero-banner-crest" />
-      </div>
-
-      <div className="quick-nav">
-        {QUICK_LINKS.map((q) => (
-          <button className="quick-nav-item" key={q.id} onClick={() => onNav(q.id)}>
-            <span className="quick-nav-icon">{q.icon}</span>
-            <span>{q.label}</span>
-          </button>
-        ))}
-        {teamInfo.storeUrl && (
-          <a
-            className="quick-nav-item"
-            href={teamInfo.storeUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="quick-nav-icon">🛒</span>
-            <span>Store</span>
-          </a>
-        )}
-      </div>
-
       <p className="hero-sub hero-sub-standalone">2026 Season</p>
 
       <div className="score-bug">
