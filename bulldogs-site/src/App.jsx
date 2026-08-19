@@ -116,10 +116,42 @@ function SectionLabel({ n, children }) {
   )
 }
 
+const QUICK_LINKS = [
+  { id: 'schedule', label: 'Schedule', icon: '📅' },
+  { id: 'roster', label: 'Roster', icon: '👥' },
+  { id: 'standings', label: 'Standings', icon: '🏆' },
+  { id: 'photos', label: 'Photos', icon: '🖼️' },
+  { id: 'videos', label: 'Training', icon: '🎥' },
+]
+
 function Home({ onNav }) {
   const next = schedule[0]
   return (
     <section className="hero">
+      <div className="hero-banner">
+        <img src={crest} alt="Beachwood Bulldogs" className="hero-banner-crest" />
+      </div>
+
+      <div className="quick-nav">
+        {QUICK_LINKS.map((q) => (
+          <button className="quick-nav-item" key={q.id} onClick={() => onNav(q.id)}>
+            <span className="quick-nav-icon">{q.icon}</span>
+            <span>{q.label}</span>
+          </button>
+        ))}
+        {teamInfo.storeUrl && (
+          <a
+            className="quick-nav-item"
+            href={teamInfo.storeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="quick-nav-icon">🛒</span>
+            <span>Store</span>
+          </a>
+        )}
+      </div>
+
       <p className="hero-sub hero-sub-standalone">2026 Season</p>
 
       <div className="score-bug">
