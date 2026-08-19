@@ -29,16 +29,34 @@ a { color: var(--brass); }
 
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
-/* ---- Top bar / ribbon nav (echoes the diagonal nameplate on the player cards) ---- */
+/* ---- Top bar / ribbon nav (turf field backdrop with faded crest watermark) ---- */
 .topbar {
-  background: var(--maroon-deep);
-  border-bottom: 3px solid var(--maroon);
   position: sticky;
   top: 0;
   z-index: 10;
+  overflow: hidden;
+  border-bottom: 3px solid var(--maroon);
+  background-color: var(--maroon-deep);
+  background-image:
+    linear-gradient(180deg, rgba(10,9,11,0.93) 0%, rgba(74,14,26,0.88) 55%, rgba(74,14,26,0.94) 100%),
+    repeating-linear-gradient(115deg, #1f4a1c 0px, #1f4a1c 42px, #274f22 42px, #274f22 84px);
+}
+
+.topbar-watermark {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: translateY(-50%);
+  height: 280px;
+  width: auto;
+  opacity: 0.1;
+  filter: grayscale(1) contrast(1.1);
+  pointer-events: none;
+  user-select: none;
 }
 
 .topbar-inner {
+  position: relative;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0.75rem 1.25rem;
@@ -202,6 +220,7 @@ main { flex: 1; max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
 @media (max-width: 640px) {
   .topbar-inner { flex-direction: column; align-items: flex-start; }
   .ribbon-nav { width: 100%; overflow-x: auto; }
+  .topbar-watermark { height: 180px; opacity: 0.08; }
 }
 
 /* ================= ESPN-style additions ================= */

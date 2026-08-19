@@ -20,6 +20,7 @@ export default function App() {
     <div className="app">
       <Ticker />
       <header className="topbar">
+        <img src={crest} alt="" className="topbar-watermark" aria-hidden="true" />
         <div className="topbar-inner">
           <div className="brand" onClick={() => setActive('home')}>
             <img src={crest} alt="Beachwood Bulldogs crest" className="crest" />
